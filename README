@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 To solve this problem using a Branch and Bound algorithm, we'll start by defining the key components of the algorithm,
 including the Branch and Bound strategy, and then provide a Python code implementation.
 
@@ -20,4 +21,28 @@ than the current best solution.
 
 You can use this code to solve the given problem and find the largest number of vehicles that can be loaded on the
 ferry while satisfying the constraints. By using memoization, the code will store and reuse previously computed results,
+=======
+To solve this problem using a Branch and Bound algorithm, we'll start by defining the key components of the algorithm,
+including the Branch and Bound strategy, and then provide a Python code implementation.
+
+Branch and Bound Strategy:
+
+Branch: In this problem, the "branch" operation refers to the decision of whether to add a vehicle to the front or the
+back of the ferry when a new vehicle arrives. We branch into two possibilities: add the vehicle to the front or add it
+to the back. This decision creates two child nodes in the search tree.
+
+Bound: The "bound" operation involves calculating an upper bound for each node in the search tree. To do this,
+we compute the maximum number of vehicles that can be added to the ferry while satisfying the weight and ordering
+constraints. If the upper bound for a node is less than the best solution found so far, we prune that branch of the
+search tree.
+
+Explanation:
+The code defines a recursive branch_and_bound function that explores the search tree by considering both adding a
+vehicle to the front and not adding it. The bound function calculates the upper bound for each node in the tree.
+The algorithm starts from the root node and explores the search space, pruning branches where the upper bound is lower
+than the current best solution.
+
+You can use this code to solve the given problem and find the largest number of vehicles that can be loaded on the
+ferry while satisfying the constraints. By using memoization, the code will store and reuse previously computed results,
+>>>>>>> 5e27a17 (Initial commit)
 which will significantly improve the efficiency of the algorithm, even for larger inputs.
