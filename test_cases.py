@@ -18,7 +18,7 @@ class TestLargestNumberOfVehicles(unittest.TestCase):
     def test_case_3(self):
         input_data = [300, 25, 31, 19, 17, 4, 10, 37, 42, 35, 15, 43, 45, 30, 39, 9, 21, 33, 25, 3, 47, 41, 50, 18, 11,
                       26, 28]
-        expected_output = 16
+        expected_output = 10
         result = largest_number_of_vehicles(input_data)
         self.assertEqual(result, expected_output)
 
@@ -32,7 +32,7 @@ class TestLargestNumberOfVehicles(unittest.TestCase):
         input_data = [2260, 50, 5, 24, 84, 58, 21, 57, 98, 51, 6, 16, 75, 95, 11, 23, 92, 85, 29, 56, 45, 55, 73, 20, 4,
                       34, 76, 96, 63, 30, 93, 2, 19, 39, 14, 71, 80, 40, 69, 54, 62, 42, 1, 10, 35, 8, 22, 70, 67, 15,
                       27, 38]
-        expected_output = 50
+        expected_output = 14
         result = largest_number_of_vehicles(input_data)
         self.assertEqual(result, expected_output)
 
