@@ -1,24 +1,47 @@
 def largest_number_of_vehicles(data):
-    max_w = data[0]
+    w = data[0]
     n = data[1]
-    w = data[2:]
+    v_weight = data[2:]
 
     memo = {}
 
-    def branch_and_bound(i, weight_sum, v_count):
-        if (i, weight_sum, v_count) in memo:
-            return memo[(i, weight_sum, v_count)]
+    def find_max_vehicles(i, remaining_weight, front_vehicles):
         if i == n:
-            return v_count
-        if weight_sum + w[i] <= max_w:
-            front_branch = branch_and_bound(i + 1, weight_sum + w[i], v_count + 1)
-            back_branch = branch_and_bound(i + 1, weight_sum, v_count)
-            output = max(front_branch, back_branch)
+            return front_vehicles
+
+        if (i, remaining_weight, front_vehicles) in memo:
+            return memo[(i, remaining_weight, front_vehicles)]
+
+        upper_bound = bound(i, remaining_weight, front_vehicles)
+
+        if upper_bound < front_vehicles:
+            return front_vehicles
+
+        skip_branch = find_max_vehicles(i + 1, remaining_weight, front_vehicles)
+
+        if remaining_weight >= v_weight[i]:
+            back_branch = find_max_vehicles(i + 1, remaining_weight - v_weight[i], front_vehicles)
+
+            front_branch = find_max_vehicles(i + 1, remaining_weight - v_weight[i], front_vehicles + 1)
         else:
-            output = branch_and_bound(i + 1, weight_sum, v_count)
-        memo[(i, weight_sum, v_count)] = output
-        return output
-    return branch_and_bound(0, 0, 0)
+            back_branch = skip_branch
+            front_branch = skip_branch
+
+        solution = max(skip_branch, back_branch, front_branch)
+
+        memo[(i, remaining_weight, front_vehicles)] = solution
+        return solution
+
+    def bound(i, remaining_weight, front_vehicles):
+        vehicles_left = n - i
+        if vehicles_left == 0:
+            return front_vehicles
+        remaining_weight -= sum(v_weight[i:i + vehicles_left])
+        if remaining_weight < 0:
+            return front_vehicles
+        return front_vehicles + min(vehicles_left, remaining_weight // min(v_weight[i:i + vehicles_left]))
+
+    return find_max_vehicles(0, w, 0)
 
 
 input_data = list(map(int, input("Enter input data as a space-separated list: ").split()))
